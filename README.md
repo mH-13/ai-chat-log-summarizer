@@ -37,3 +37,32 @@ source venv/bin/activate
 
 # Install dependencies
 pip install -r requirements.txt
+
+---
+
+
+## Usage
+
+### Single file
+
+```bash
+python main.py -i data/chat1.txt
+```
+
+**Output Example**
+
+```text
+--- chat1.txt ---
+=== Conversation Summary ===
+- Total messages: 8 (5 User, 3 AI)
+- Top keywords: python, ai, data, use, language
+- Nature: Questions about Python usage.
+```
+
+### Batch + TF-IDF
+
+```bash
+python main.py -i data/ --tfidf
+```
+
+---
