@@ -72,23 +72,6 @@ You can include any number of `.txt` files there (e.g. `chat1.txt`, `chat2.txt`,
 python main.py -i data/chat1.txt
 ```
 
-#### Sample output
-
-```
---- chat1.txt ---
-=== Conversation Summary ===
-- Total messages: 8 (5 User, 3 AI)
-- Top keywords: python, ai, data, use, language
-- Nature: Questions about Python usage.
-```
-
-## 📸 Pictures
-
-![Sample run of AI Chat Log Summarizer](docs/large_log.png)
-
-![Sample summary screenshot](docs/one_final_run.png)
-
----
 
 ### Summarize all files in a folder
 
@@ -108,7 +91,26 @@ This weights words by how unique they are across messages, rather than just raw 
 
 ---
 
-## 🧪 Testing
+#### Sample output
+
+```
+--- chat1.txt ---
+=== Conversation Summary ===
+- Total messages: 8 (5 User, 3 AI)
+- Top keywords: python, ai, data, use, language
+- Nature: Questions about Python usage.
+```
+
+## 📸 Pictures
+
+![Sample run of AI Chat Log Summarizer](docs/large_log.png)
+
+![Sample summary screenshot](docs/one_final_run.png)
+
+---
+
+
+## 🧪 Testing(Optional)
 
 If you’ve added tests under `tests/`, run:
 
