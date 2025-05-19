@@ -1,4 +1,4 @@
-# Main script to run the tool
+# Main script to run the tool. Serves as the CLI entry point, orchestrating parsing, analysis, keyword extraction, and summary printing. 
 
 import argparse
 import glob
@@ -8,6 +8,8 @@ from summarizer.analyzer import message_stats
 from summarizer.keyword_extractor import top_n_freq, top_n_tfidf
 from summarizer.summarizer import generate_summary
 
+#function to process a single file end to end
+#Calls parser → analyzer → extractor → summarizer.
 def process_file(path: str, use_tfidf: bool):
     turns = parse_chat(path)
     stats = message_stats(turns)
@@ -24,11 +26,11 @@ def main():
         description="AI Chat Log Summarizer"
     )
     p.add_argument(
-        "--input", "-i", required=True,
+        "--input", "-i", required=True, # -input/-i: required; accepts either a single file or folder
         help="Path to a .txt file or a folder containing .txt files"
     )
     p.add_argument(
-        "--tfidf", action="store_true",
+        "--tfidf", action="store_true", # optional switch; when present, uses TF-IDF mode.
         help="Use TF-IDF for keyword extraction"
     )
     args = p.parse_args()
