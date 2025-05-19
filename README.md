@@ -26,7 +26,7 @@ This helps you quickly understand large chat transcripts without manual reading.
 
 ---
 
-## Installation  
+## Installation & Usage
 ```bash
 git clone https://github.com/<your-username>/ai-chat-log-summarizer.git
 cd ai-chat-log-summarizer
@@ -37,13 +37,10 @@ source venv/bin/activate
 
 # Install dependencies
 pip install -r requirements.txt
-
 ---
 
 
-## Usage
-
-### Single file
+*Summarizing Single file*
 
 ```bash
 python main.py -i data/chat1.txt
