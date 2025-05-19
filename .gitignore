@@ -1,2 +1,3 @@
+# ignoring files and directories that are not needed in the repository
 venv/
 __pycache__/
