@@ -1,2 +1,39 @@
-# ai-chat-log-summarizer
-AI Chat Log Summarizer is a Python-based tool that reads .txt chat logs between a user and an AI, parses the conversation, and produces a simple summary including message counts and frequently used keywords.
+<!-- Project Title & Badges -->
+# AI Chat Log Summarizer  
+[![PyPI version](https://img.shields.io/pypi/v/ai-chat-log-summarizer)]()  
+[![Build Status](https://img.shields.io/github/actions/workflow/status/your-username/ai-chat-log-summarizer/ci.yml)]()
+
+---
+
+## Overview  
+**AI Chat Log Summarizer** is a lightweight Python CLI tool that  
+- Parses `.txt` chat logs (`User:` / `AI:`)  
+- Computes message statistics  
+- Extracts top keywords via frequency or TF-IDF  
+- Generates a concise summary report  
+
+This helps you quickly understand large chat transcripts without manual reading.
+
+---
+
+## Features  
+- **Chat Parsing**: Splits lines into `User` / `AI` messages  
+- **Statistics**: Counts total, user vs. AI messages  
+- **Keyword Extraction**: Top-5 keywords (stopword-filtered)  
+- **Summaries**: Outputs counts, top keywords, and “nature” insights  
+- **Bonus**: `--tfidf` flag for TF-IDF–based keywords  
+- **Batch Mode**: Summarize all `.txt` files in a folder
+
+---
+
+## Installation  
+```bash
+git clone https://github.com/<your-username>/ai-chat-log-summarizer.git
+cd ai-chat-log-summarizer
+
+# Create & activate venv
+python3 -m venv venv
+source venv/bin/activate
+
+# Install dependencies
+pip install -r requirements.txt
