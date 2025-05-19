@@ -82,6 +82,12 @@ python main.py -i data/chat1.txt
 - Nature: Questions about Python usage.
 ```
 
+## 📸 Pictures
+
+![Sample run of AI Chat Log Summarizer](docs/large_log.png)
+
+![Sample summary screenshot](docs/one_final_run.png)
+
 ---
 
 ### Summarize all files in a folder
