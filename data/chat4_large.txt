@@ -1,0 +1,127 @@
+User: What’s FastAPI?
+AI: A modern, fast web framework, with async support and auto OpenAPI docs.
+User: Show me a simple FastAPI example.
+AI: 
+from fastapi import FastAPI
+app = FastAPI()
+@app.get("/ping")
+async def ping():
+    return {"ping": "pong"}
+User: How to run it?
+AI: uvicorn main:app --reload
+User: What is async/await?
+AI: Syntax for asynchronous code that doesn’t block the event loop.
+User: How do I test async endpoints?
+AI: Use pytest + httpx or starlette.testclient.
+User: How to handle CORS?
+AI: Install fastapi.middleware.cors.CORSMiddleware and configure origins.
+User: What is GraphQL?
+AI: A query language for APIs that lets clients request exactly what they need.
+User: How to implement GraphQL in Python?
+AI: Use graphene or ariadne.
+User: What is TypeScript?
+AI: A superset of JavaScript with static typing.
+User: How to set up a TS project?
+AI: npm init, npm install typescript --save-dev, add tsconfig.json.
+User: How to compile?
+AI: npx tsc
+User: How to use Node.js with Express?
+AI: 
+const express = require('express');
+const app = express();
+app.get('/', (req, res) => res.send('Hello World'));
+app.listen(3000);
+User: How to connect Express to MongoDB?
+AI: Use mongoose and mongoose.connect(uri).
+User: What is React?
+AI: A front-end JS library for building UIs with components and hooks.
+User: How to create a React app?
+AI: npx create-react-app my-app
+User: What are React hooks?
+AI: Functions like useState and useEffect for state and lifecycle in function components.
+User: How to fetch data in React?
+AI: Use fetch in useEffect or libraries like axios or react-query.
+User: What is Redux?
+AI: State management with a single store and reducers.
+User: Why use Redux Toolkit?
+AI: Simplifies Redux with batteries-included utilities.
+User: How to write a middleware in Redux?
+AI: Provide a function that wraps dispatch, e.g. logging or async.
+User: How to test React components?
+AI: Use React Testing Library and jest.
+User: What is Docker Compose?
+AI: A tool to define and run multi-container Docker apps via docker-compose.yml.
+User: Show me a basic docker-compose.yml.
+AI: 
+version: '3'
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+  db:
+    image: postgres
+User: How to scale services?
+AI: Use replicas in Docker Swarm or Kubernetes.
+User: What is AWS?
+AI: Amazon Web Services—cloud platform offering compute, storage, databases, and more.
+User: How to deploy a Flask app to AWS Lambda?
+AI: Use Zappa or AWS SAM.
+User: How to configure S3 permissions?
+AI: Use IAM roles/policies and bucket ACLs.
+User: What is Terraform?
+AI: Infrastructure as code tool to provision cloud resources.
+User: How to write a simple Terraform config?
+AI: 
+provider "aws" {
+  region = "us-east-1"
+}
+resource "aws_s3_bucket" "b" {
+  bucket = "my-tf-bucket"
+}
+User: What is CI/CD with GitLab?
+AI: Pipelines defined in .gitlab-ci.yml with stages and jobs.
+User: How to cache dependencies?
+AI: Use cache: block in your CI YAML.
+User: What is a monorepo?
+AI: A single repository containing multiple related projects.
+User: Pros and cons?
+AI: Easier refactoring vs. potential for large repos and complex CI.
+User: What is microservices?
+AI: Architectural style splitting apps into small, loosely coupled services.
+User: Pros and cons?
+AI: Scalability & team autonomy vs. deployment complexity.
+User: How to monitor microservices?
+AI: Use Prometheus, Grafana, or commercial APMs like Datadog.
+User: What is OAuth2 vs. JWT?
+AI: OAuth2 is an authorization framework; JWT is a token format.
+User: How to use JWT in Flask?
+AI: Use PyJWT to encode/decode tokens in your endpoints.
+User: How to document APIs?
+AI: Use OpenAPI/Swagger specs; FastAPI generates them automatically.
+User: What’s Postman?
+AI: A GUI tool for API testing and collections.
+User: How to write tests in Postman?
+AI: Use the “Tests” tab with JavaScript assertions.
+User: What is Webpack?
+AI: A JavaScript bundler that processes modules and assets.
+User: How to configure webpack.config.js?
+AI: Specify entry, output, loaders, and plugins.
+User: What’s ESLint?
+AI: A linter for JavaScript/TypeScript code quality.
+User: How to set up ESLint?
+AI: npm install eslint --save-dev then npx eslint --init.
+User: How to integrate Prettier?
+AI: Install prettier and eslint-config-prettier to avoid conflicts.
+User: What are design patterns in Python?
+AI: Examples include Singleton, Observer, Factory, Strategy….
+User: Explain Singleton.
+AI: Ensures a class has only one instance and provides a global access point.
+User: Explain Observer.
+AI: Defines one-to-many dependency so observers update automatically.
+User: How do I implement Factory?
+AI: Provide a method that returns instances of different classes based on input.
+User: Wrap-up: what have we covered?
+AI: We’ve walked through Python basics, web frameworks, data libraries, DevOps, JS frameworks, and architecture patterns.
+User: Thanks—that’s great!
+AI: You’re welcome! Let me know if there’s anything else.
