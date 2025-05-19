@@ -89,7 +89,7 @@ This weights words by how unique they are across messages, rather than just raw 
 
 ---
 
-#### Sample output
+### Sample output
 
 ```
 --- chat1.txt ---
@@ -99,7 +99,7 @@ This weights words by how unique they are across messages, rather than just raw 
 - Nature: Questions about Python usage.
 ```
 
-## 📸 Pictures
+### 📸 Pictures
 
 ![Sample run of AI Chat Log Summarizer](docs/large_log.png)
 
