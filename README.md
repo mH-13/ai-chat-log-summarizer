@@ -79,8 +79,6 @@ python main.py -i data/chat1.txt
 python main.py -i data/
 ```
 
----
-
 ### Use TF-IDF for keywords
 
 ```bash
@@ -106,8 +104,6 @@ This weights words by how unique they are across messages, rather than just raw 
 ![Sample run of AI Chat Log Summarizer](docs/large_log.png)
 
 ![Sample summary screenshot](docs/one_final_run.png)
-
----
 
 
 ## 🧪 Testing(Optional)
