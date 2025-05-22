@@ -28,6 +28,8 @@ Perfect for quickly getting the gist of long conversation transcripts.
 - **Batch Processing**  
   Summarize all `.txt` logs in a folder at once.
 
+- **Abstractive Summaries** (`--abstractive`)  
+  Uses a distilled BART transformer to generate bullet-point summaries.
 ---
 
 ## 🚀 Quickstart
@@ -87,6 +89,12 @@ python main.py -i data/chat1.txt --tfidf
 
 This weights words by how unique they are across messages, rather than just raw counts.
 
+
+### Abstractive (transformer-based summary)
+```bash
+python main.py -i data/chat1.txt --abstractive
+
+
 ---
 
 ### Sample output
@@ -131,6 +139,7 @@ ai-chat-log-summarizer/
 │   ├── analyzer.py
 │   ├── keyword_extractor.py
 │   └── summarizer.py
+│   └── abstractive.py         # Transformer-based summarization
 ├── tests/
 │   └── test_functionality.py
 ├── .gitignore
