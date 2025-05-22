@@ -7,16 +7,33 @@ from summarizer.chat_parser import parse_chat
 from summarizer.analyzer import message_stats
 from summarizer.keyword_extractor import top_n_freq, top_n_tfidf
 from summarizer.summarizer import generate_summary
+from summarizer.abstractive import generate_abstractive_summary  # <-- new import
+
+
 
 #function to process a single file end to end
 #Calls parser → analyzer → extractor → summarizer.
-def process_file(path: str, use_tfidf: bool):
+def process_file(path: str, use_tfidf: bool, use_abstractive: bool):
     turns = parse_chat(path)
+    print(f"Parsed {len(turns)} turns from {os.path.basename(path)}")
+    # If using abstractive summarization, call the function and return
+    
+    if use_abstractive:
+        #skilp stats/keywords and go straight to abstractive summary
+        abstractive = generate_abstractive_summary(turns)
+        print("=== Abstractive Summary ===")
+        print(abstractive)
+        return
+    
+    # Otherwise, proceed with the original pipeline
+    # Generate stats and keywords 
+    
     stats = message_stats(turns)
     if use_tfidf:
         kws = top_n_tfidf(turns)
     else:
         kws = top_n_freq(turns)
+    
     summary = generate_summary(stats, kws)
     print(f"\n--- {os.path.basename(path)} ---")
     print(summary)
@@ -33,16 +50,22 @@ def main():
         "--tfidf", action="store_true", # optional switch; when present, uses TF-IDF mode.
         help="Use TF-IDF for keyword extraction"
     )
+    p.add_argument("--abstractive", action="store_true", # optional switch; when present, uses abstractive summarization.
+        help="Use transformer based  abstractive summarization" # <--new argument
+    )
+    
+    
     args = p.parse_args()
 
     paths = []
+    
     if os.path.isdir(args.input):
         paths = glob.glob(os.path.join(args.input, "*.txt"))
     else:
         paths = [args.input]
 
     for path in paths:
-        process_file(path, args.tfidf)
+        process_file(path, args.tfidf, args.abstractive) # <-- pass the new argument
 
 if __name__ == "__main__":
     main()
