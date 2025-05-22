@@ -14,29 +14,51 @@ from summarizer.abstractive import generate_abstractive_summary  # <-- new impor
 #function to process a single file end to end
 #Calls parser → analyzer → extractor → summarizer.
 def process_file(path: str, use_tfidf: bool, use_abstractive: bool):
+    
+    # 1) Parsing the chat turns
     turns = parse_chat(path)
     print(f"Parsed {len(turns)} turns from {os.path.basename(path)}")
     # If using abstractive summarization, call the function and return
     
+    # 2) Computing stats & keywords for both modes
+    stats = message_stats(turns)
+    kws = top_n_tfidf(turns) if use_tfidf else top_n_freq(turns)
+    top_keys = [kw for kw, _ in kws]
+
+    # 3) Printing the extractive-style summary block
+    print("\nSummary:")
+    print(f"- The conversation had {stats['total_messages']} exchanges.")
+    
+
+    nature = top_keys[0] if top_keys else "general topics"
+    print(f"- The user asked mainly about {nature}.")
+    print(f"- Most common keywords: {', '.join(top_keys)}.\n")
+    
+    # 4) Branch on summarization mode
     if use_abstractive:
         #skilp stats/keywords and go straight to abstractive summary
         abstractive = generate_abstractive_summary(turns)
         print("=== Abstractive Summary ===")
         print(abstractive)
         return
+    else:
+        # Extractive fallback
+        summary = generate_summary(stats, kws)
+        print(f"\n--- {os.path.basename(path)} (Extractive) ---")
+        print(summary)
     
     # Otherwise, proceed with the original pipeline
-    # Generate stats and keywords 
+    # # Generate stats and keywords 
     
-    stats = message_stats(turns)
-    if use_tfidf:
-        kws = top_n_tfidf(turns)
-    else:
-        kws = top_n_freq(turns)
+    # stats = message_stats(turns)
+    # if use_tfidf:
+    #     kws = top_n_tfidf(turns)
+    # else:
+    #     kws = top_n_freq(turns)
     
-    summary = generate_summary(stats, kws)
-    print(f"\n--- {os.path.basename(path)} ---")
-    print(summary)
+    # summary = generate_summary(stats, kws)
+    # print(f"\n--- {os.path.basename(path)} ---")
+    # print(summary)
 
 def main():
     p = argparse.ArgumentParser(

@@ -4,14 +4,12 @@ from typing import List, Tuple
 
 def generate_abstractive_summary(
     turns: List[Tuple[str, str]],
-    max_length: int = 150,
+    max_length: int = 450,
     min_length: int = 40,
     **kwargs
 ) -> str:
-    """
-    Builds a speaker-aware input string from 'turns', then
-    lazily initializes and calls the HF summarization pipeline.
-    """
+    """Builds a speaker-aware input string from 'turns', then
+    lazily initializes and calls the HF summarization pipeline."""
     # 1) Build the combined document with speaker tokens
     doc = []
     for speaker, text in turns:
@@ -23,8 +21,10 @@ def generate_abstractive_summary(
     from transformers import pipeline
     summarizer = pipeline(
         "summarization",
-        model="facebook/bart-large-cnn",  # or your chosen model
-        device=0                            # -1 for CPU
+        # model="facebook/bart-large-cnn",  # or your chosen model
+        #switching smaller modlel for faster inference\
+        model="sshleifer/distilbart-cnn-12-6",
+        device=-1                            # -1 for CPU
     )
 
     # 3) Run summarization only now
@@ -35,3 +35,7 @@ def generate_abstractive_summary(
         **kwargs
     )
     return result[0]["summary_text"]
+
+
+#this code has issue to working with large size of txt file. 
+#otherwise, it works well with small size of txt file.
