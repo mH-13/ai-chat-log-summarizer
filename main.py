@@ -7,7 +7,7 @@ from summarizer.chat_parser import parse_chat
 from summarizer.analyzer import message_stats
 from summarizer.keyword_extractor import top_n_freq, top_n_tfidf
 from summarizer.summarizer import generate_summary
-from summarizer.abstractive import generate_abstractive_summary  # <-- new import
+from summarizer.abstractive import generate_abstractive_summary  # <-- new import 
 
 
 
@@ -30,7 +30,18 @@ def process_file(path: str, use_tfidf: bool, use_abstractive: bool):
     print(f"- The conversation had {stats['total_messages']} exchanges.")
     
 
-    nature = top_keys[0] if top_keys else "general topics"
+    # If the first keyword is very generic (like "use"), swap in the second
+    if top_keys and top_keys[0] in {"use", "uses", "using"} and len(top_keys) > 1:
+        primary, secondary = top_keys[1], top_keys[0]
+    else:
+        primary, secondary = top_keys[0], top_keys[1] if len(top_keys) > 1 else ""
+
+    # Build phrase and cleanup:
+    phrase = f"{primary} {secondary}".strip()
+    nature = phrase.replace("_", " ").capitalize()
+
+    
+    # nature = top_keys[0] if top_keys else "general topics"
     print(f"- The user asked mainly about {nature}.")
     print(f"- Most common keywords: {', '.join(top_keys)}.\n")
     
