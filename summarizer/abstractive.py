@@ -7,36 +7,35 @@ from transformers import pipeline, AutoTokenizer
 def generate_abstractive_summary(
     turns: List[Tuple[str, str]],
     num_segments: int = 6,
-    summary_ratio: float = 0.4,
-    overlap: int = 50,
+    summary_ratio: float = 0.5,
+    overlap: int = 20,
     **kwargs
 ) -> str:
-    """
-    1) Builds speaker-aware full text
-    2) Chunks into N segments of roughly equal size
-    3) Summarizes each segment with controlled decoding
-    4) Joins segment summaries and bulletizes by sentence
-    """
+    """ 1) Builds speaker-aware full text
+        2) Chunks into N segments of roughly equal size
+        3) Summarizes each segment with controlled decoding
+        4) Joins segment summaries and bulletizes by sentence """
 
-    # 1) Build the text
+    # Building the full text with speaker tags
     doc = []
     for speaker, text in turns:
         token = "<USER>" if speaker == "User" else "<AI>"
         doc.append(f"{token} {text}")
     full_text = " ".join(doc)
 
-    # 2) Prepare model + tokenizer
+    #Loading the summarization model
+    # Note: we can change the model to any other summarization model available on Hugging Face
     model_name = "sshleifer/distilbart-cnn-12-6"
-    summarizer = pipeline("summarization", model=model_name, device=-1)
+    summarizer = pipeline("summarization", model=model_name, device=0) # Use device=-1 for CPU, or set to GPU id if available
     tokenizer = AutoTokenizer.from_pretrained(model_name)
-    max_tokens = tokenizer.model_max_length
+    max_tokens = tokenizer.model_max_length # e.g. 1024
 
-    # 3) Compute approximate tokens per segment
+    #Approx token per segment
     tokens = tokenizer.tokenize(full_text)
     total_tokens = len(tokens)
     chunk_token_size = total_tokens // num_segments
 
-    # 4) Build overlapping token‐based chunks
+    #Building the overlaping token segments
     chunks = []
     for i in range(num_segments):
         start = max(0, i * chunk_token_size - overlap)
@@ -44,7 +43,8 @@ def generate_abstractive_summary(
         chunk_text = tokenizer.convert_tokens_to_string(tokens[start:end])
         chunks.append(chunk_text)
 
-    # 5) Summarize each chunk
+    #summarizing each chunk
+    # Note: we can adjust the max_length and min_length based on the chunk size
     partial_summaries = []
     for chunk in chunks:
         # skip empty chunks
@@ -66,7 +66,7 @@ def generate_abstractive_summary(
         )
         partial_summaries.append(out[0]["summary_text"].strip())
 
-    # 6) Combine & clean
+    #Combining summaries for clearn output
     combined = " ".join(partial_summaries)
     # Remove duplicate sentences
     sentences = re.split(r'(?<=[.!?])\s+', combined)
@@ -77,6 +77,7 @@ def generate_abstractive_summary(
             seen.add(s)
             unique.append(s)
 
-    # 7) Bulletize
+    # Bulletizing the unique sentences
+    # Note: we can adjust the bullet format as needed
     bullets = [f"- {s.rstrip('. ')}." for s in unique if s.strip()]
     return "\n".join(bullets)
