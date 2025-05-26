@@ -38,10 +38,10 @@ def generate_summary(
         lines.append("- Nature: Questions about OpenAI.")
     elif "model" in top_keys:
         lines.append("- Nature: Questions about models.")
-    elif "data" in top_keys:
-        lines.append("- Nature: Questions about data.")
     elif "python" in top_keys or "python3" in top_keys:
         lines.append("- Nature: Questions about Python usage.")
+    elif "data" in top_keys:
+        lines.append("- Nature: Questions about data.")
     elif "machine" in top_keys and "learning" in top_keys:
         lines.append("- Nature: Questions about Machine Learning.")
     elif "fastapi" in top_keys and "react" in top_keys:
